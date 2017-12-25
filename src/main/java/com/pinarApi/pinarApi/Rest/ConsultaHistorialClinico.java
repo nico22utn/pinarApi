@@ -5,10 +5,20 @@
  */
 package com.pinarApi.pinarApi.Rest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  *
  * @author User
  */
+@RestController
+@RequestMapping("/historialService")
 public class ConsultaHistorialClinico {
+    
+    @Autowired @Qualifier("historialClinicoService")
+    private HistorialClinicoService historialClinicoService;
     
 }
