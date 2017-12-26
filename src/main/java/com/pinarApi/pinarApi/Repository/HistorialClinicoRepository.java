@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author User
  */
 @Repository("historialClinicoRepository")
-public interface HistorialClinicoRepository extends JpaRepository<HistorialClinico, Serializable>{
+public interface HistorialClinicoRepository extends JpaRepository<HistorialClinico, Serializable>,HistorialClinicoRepositoryCustom{
+    
       
 }

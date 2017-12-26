@@ -18,16 +18,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
  *
  * @author User
  */
-public class HistorialClinicoServiceImpl {
+public class HistorialClinicoServiceImpl implements HistorialClinicoService {
     @Autowired @Qualifier("historialClinicoRepository")
     private HistorialClinicoRepository historialClinicoRepository;
-    
-    public List<HistorialClinicoModel> listAll(){
-        List<HistorialClinico> lista= historialClinicoRepository.findAll();
-        List<HistorialClinicoModel> model=new ArrayList<>();
-        for(HistorialClinico h:lista){
-            model.add(HistorialClinicoConverter.historialClinicoToModel(h));
-        }
+    @Autowired @Qualifier("historialClinicoConverter")
+    private HistorialClinicoConverter historialClinicoConverter;
+
+    @Override
+    public HistorialClinicoModel buscarHistorialPorDni(String dni) {
+        HistorialClinico h=historialClinicoRepository.buscarHistorialPorDni(dni);
+        HistorialClinicoModel model= new HistorialClinicoModel();
+        model=HistorialClinicoConverter.historialClinicoToModel(h);
         return model;
     }
+    
+    
 }

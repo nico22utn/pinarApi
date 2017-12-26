@@ -39,30 +39,16 @@ public class Paciente {
     @Temporal(TemporalType.DATE)
     private Date fechadeNacimiento;
     @Column
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaAlta;
     @Column
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaBaja;
     @Column
     private String motivoBaja;
-
-    public String getMotivoBaja() {
-        return motivoBaja;
-    }
-
-    public void setMotivoBaja(String motivoBaja) {
-        this.motivoBaja = motivoBaja;
-    }
     @Lob
     @Column(name="foto",nullable=false)
     private byte[] fotoPaciente;
-
-    public byte[] getFotoPaciente() {
-        return fotoPaciente;
-    }
-
-    public void setFotoPaciente(byte[] fotoPaciente) {
-        this.fotoPaciente = fotoPaciente;
-    }
     @Column
     private String nombre;
     @ManyToOne
@@ -71,92 +57,124 @@ public class Paciente {
     public Paciente() {
     }
 
-    public Long getId() {
-        return id;
+    public Paciente(Long id, String apellido, Double peso, Double talla, String dni, int edad, Date fechadeNacimiento, Date fechaAlta, Date fechaBaja, String motivoBaja, byte[] fotoPaciente, String nombre, ObraSocial obraSocial) {
+        this.id = id;
+        this.apellido = apellido;
+        this.peso = peso;
+        this.talla = talla;
+        this.dni = dni;
+        this.edad = edad;
+        this.fechadeNacimiento = fechadeNacimiento;
+        this.fechaAlta = fechaAlta;
+        this.fechaBaja = fechaBaja;
+        this.motivoBaja = motivoBaja;
+        this.fotoPaciente = fotoPaciente;
+        this.nombre = nombre;
+        this.obraSocial = obraSocial;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public Date getFechaAlta() {
-        return fechaAlta;
-    }
-
-    public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
-    }
-
-    public Date getFechaBaja() {
-        return fechaBaja;
-    }
-
-    public void setFechaBaja(Date fechaBaja) {
-        this.fechaBaja = fechaBaja;
-    }
-
-
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public ObraSocial getObraSocial() {
-        return obraSocial;
-    }
-
-    public void setObraSocial(ObraSocial obraSocial) {
-        this.obraSocial = obraSocial;
-    }
-        public Double getPeso() {
+    public Double getPeso() {
         return peso;
-    }
-
-    public void setPeso(Double peso) {
-        this.peso = peso;
     }
 
     public Double getTalla() {
         return talla;
     }
 
-    public void setTalla(Double talla) {
-        this.talla = talla;
+    public String getDni() {
+        return dni;
     }
-        public Date getFechadeNacimiento() {
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public Date getFechadeNacimiento() {
         return fechadeNacimiento;
     }
 
-    public void setFechadeNacimiento(Date fechadeNacimiento) {
-        this.fechadeNacimiento = fechadeNacimiento;
+    public Date getFechaAlta() {
+        return fechaAlta;
     }
-    
-        public int getEdad() {
-        return edad;
+
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
+
+    public String getMotivoBaja() {
+        return motivoBaja;
+    }
+
+    public byte[] getFotoPaciente() {
+        return fotoPaciente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public ObraSocial getObraSocial() {
+        return obraSocial;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setPeso(Double peso) {
+        this.peso = peso;
+    }
+
+    public void setTalla(Double talla) {
+        this.talla = talla;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public void setEdad(int edad) {
         this.edad = edad;
     }
-    
+
+    public void setFechadeNacimiento(Date fechadeNacimiento) {
+        this.fechadeNacimiento = fechadeNacimiento;
+    }
+
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
+
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
+
+    public void setMotivoBaja(String motivoBaja) {
+        this.motivoBaja = motivoBaja;
+    }
+
+    public void setFotoPaciente(byte[] fotoPaciente) {
+        this.fotoPaciente = fotoPaciente;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setObraSocial(ObraSocial obraSocial) {
+        this.obraSocial = obraSocial;
+    }
+            
 }
