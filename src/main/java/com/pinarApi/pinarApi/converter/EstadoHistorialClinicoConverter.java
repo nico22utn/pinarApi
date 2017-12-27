@@ -7,11 +7,13 @@ package com.pinarApi.pinarApi.converter;
 
 import com.pinarApi.pinarApi.entidades.EstadoHistorialClinico;
 import com.pinarApi.pinarApi.modelo.EstadoHistorialClinicoModel;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author User
  */
+
 public class EstadoHistorialClinicoConverter {
     public static EstadoHistorialClinicoModel estadoHistorialClinicoToModel(EstadoHistorialClinico estado){
         EstadoHistorialClinicoModel eh=new EstadoHistorialClinicoModel();

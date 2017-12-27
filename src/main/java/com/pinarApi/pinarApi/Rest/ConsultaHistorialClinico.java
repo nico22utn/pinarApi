@@ -24,11 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/historialClinico")
 public class ConsultaHistorialClinico {
     
-    @Autowired @Qualifier("historialClinicoService")
+    @Autowired @Qualifier("HistorialClinicoServiceImpl")
     private HistorialClinicoService historialClinicoService;
     
     @GetMapping("/find")
-    public ResponseEntity<HistorialClinicoModel> getFindEntityCliente(@RequestParam(value="dni",required=true) String dni){
+    public ResponseEntity<HistorialClinicoModel> getFindEntityCliente
+        (@RequestParam(value="dni",required=true) String dni){
             HistorialClinicoModel model = historialClinicoService.buscarHistorialPorDni(dni);
             return new ResponseEntity<HistorialClinicoModel>(model, HttpStatus.OK);
     }

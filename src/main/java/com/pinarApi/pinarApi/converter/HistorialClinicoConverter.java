@@ -7,21 +7,23 @@ package com.pinarApi.pinarApi.converter;
 
 import com.pinarApi.pinarApi.entidades.HistorialClinico;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author User
  */
+@Component
 public class HistorialClinicoConverter {
     
-    public static HistorialClinicoModel historialClinicoToModel(HistorialClinico historialClinico){
+    public HistorialClinicoModel historialClinicoToModel(HistorialClinico historialClinico){
         HistorialClinicoModel model= new HistorialClinicoModel();
         model.setId(historialClinico.getId());
         model.setPaciente(PacienteConverter.pacienteToModel(historialClinico.getPaciente()));
         model.setHistorialEstado(HistorialClinicoEstadoConverter.historialClinicoEstadoToModel(historialClinico.getHistorial()));
         return model;
     }
-    public static HistorialClinico modelToHistorialClinico(HistorialClinicoModel model){
+    public HistorialClinico modelToHistorialClinico(HistorialClinicoModel model){
         HistorialClinico historial= new HistorialClinico();
         historial.setId(model.getId());
         historial.setPaciente(PacienteConverter.modelToPaciente(model.getPaciente()));
