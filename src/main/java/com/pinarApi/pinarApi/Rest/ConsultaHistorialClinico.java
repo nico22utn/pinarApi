@@ -5,8 +5,10 @@
  */
 package com.pinarApi.pinarApi.Rest;
 
+import com.pinarApi.pinarApi.modelo.DetalleInformeModel;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
 import com.pinarApi.pinarApi.services.HistorialClinicoService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -28,10 +30,10 @@ public class ConsultaHistorialClinico {
     private HistorialClinicoService historialClinicoService;
     
     @GetMapping("/find")
-    public ResponseEntity<HistorialClinicoModel> getFindEntityCliente
+    public ResponseEntity<List<DetalleInformeModel>> getFindEntityCliente
         (@RequestParam(value="dni",required=true) String dni){
-            HistorialClinicoModel model = historialClinicoService.buscarHistorialPorDni(dni);
-            return new ResponseEntity<HistorialClinicoModel>(model, HttpStatus.OK);
+            List<DetalleInformeModel> list = historialClinicoService.buscarHistorialInformePorDni(dni);
+            return new ResponseEntity<List<DetalleInformeModel>>(list, HttpStatus.OK);
     }
     
 }

@@ -20,7 +20,7 @@ public class HistorialClinicoConverter {
         HistorialClinicoModel model= new HistorialClinicoModel();
         model.setId(historialClinico.getId());
         model.setPaciente(PacienteConverter.pacienteToModel(historialClinico.getPaciente()));
-        model.setHistorialEstado(HistorialClinicoEstadoConverter.historialClinicoEstadoToModel(historialClinico.getHistorial()));
+        //model.setHistorialEstado(HistorialClinicoEstadoConverter.historialClinicoEstadoToModel(historialClinico.getHistorial()));
         return model;
     }
     public HistorialClinico modelToHistorialClinico(HistorialClinicoModel model){
