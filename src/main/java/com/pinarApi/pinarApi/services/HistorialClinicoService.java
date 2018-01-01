@@ -5,6 +5,7 @@
  */
 package com.pinarApi.pinarApi.services;
 
+import com.pinarApi.pinarApi.modelo.DetalleInformeModel;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
 import java.util.List;
 /**
@@ -13,6 +14,6 @@ import java.util.List;
  */
 public interface HistorialClinicoService {
     
-        HistorialClinicoModel buscarHistorialPorDni(String dni);
+        List<DetalleInformeModel> buscarHistorialInformePorDni(String dni);
 
 }
