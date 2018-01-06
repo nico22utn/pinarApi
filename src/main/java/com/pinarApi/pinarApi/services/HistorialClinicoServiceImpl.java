@@ -5,6 +5,7 @@
  */
 package com.pinarApi.pinarApi.services;
 
+import com.pinarApi.pinarApi.Repository.DetalleInformeRepository;
 import com.pinarApi.pinarApi.Repository.HistorialClinicoRepository;
 import com.pinarApi.pinarApi.Repository.InformeRepository;
 import com.pinarApi.pinarApi.Repository.PacienteRepository;
@@ -20,6 +21,8 @@ import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,14 +42,23 @@ public class HistorialClinicoServiceImpl implements HistorialClinicoService {
     private PacienteRepository pacienteRepository;
     @Autowired
     private InformeRepository informeRepository;
-    protected EntityManager entityManager;
-    private SessionFactory sessionFactory;
+    @Autowired
+    private DetalleInformeRepository detalleInformeRepository;
     @Override
     public List<DetalleInformeModel> buscarHistorialInformePorDni(String dni) {
+        
         Paciente paciente = pacienteRepository.findByDni(dni);
         HistorialClinico historial =historialClinicoRepository.findByPaciente(paciente);
-        List<Long> ids= entityManager.createQuery("SELECT i.id FROM Informe i where i.historialClinico=:h ").setParameter("h", historial).getResultList();
-        List<DetalleInforme> list=entityManager.createQuery("SELECT * FROM DetalleInforme de where de.informe.id in :ids AND de.tipoInforme=:tipo").setParameter("ids",ids).setParameter("tipo",TipoInforme.BASICO).getResultList();
+        List<Informe> listInforme=informeRepository.findByHistorialClinico(historial);
+        List<DetalleInforme> list=new ArrayList<>();
+        for(Informe i:listInforme){
+            List<DetalleInforme> listAux=new ArrayList<>();
+            listAux=detalleInformeRepository.findByInformeAndTipoInforme(i, TipoInforme.BASICO);
+            list.addAll(listAux);
+        }
+        //List<Long> ids=new ArrayList<>();
+        //ids= entityManager.createQuery("SELECT i.id FROM Informe i where i.historialClinico=:h ").setParameter("h", historial).getResultList();
+        //List<DetalleInforme> list=entityManager.createQuery("SELECT * FROM DetalleInforme de where de.informe.id in :ids AND de.tipoInforme=:tipo").setParameter("ids",ids).setParameter("tipo",TipoInforme.BASICO).getResultList();
         List<DetalleInformeModel> listConverter=new ArrayList<>();
         for(DetalleInforme d: list){
             DetalleInformeModel model=DetalleInformeConverter.detalleInformeToModel(d);
