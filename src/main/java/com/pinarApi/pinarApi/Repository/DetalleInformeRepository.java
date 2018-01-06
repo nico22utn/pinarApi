@@ -5,7 +5,8 @@
  */
 package com.pinarApi.pinarApi.Repository;
 
-import com.pinarApi.pinarApi.entidades.HistorialClinico;
+import com.pinarApi.pinarApi.entidades.DetalleInforme;
+import com.pinarApi.pinarApi.entidades.DetalleInforme.TipoInforme;
 import com.pinarApi.pinarApi.entidades.Informe;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Repository;
  * @author User
  */
 @Repository
-public interface InformeRepository extends JpaRepository<Informe, Serializable>{
-    
-    public List<Informe> findByHistorialClinico(HistorialClinico historial);
+public interface DetalleInformeRepository extends JpaRepository<DetalleInforme, Serializable>{
+ 
+    public List<DetalleInforme> findByInformeAndTipoInforme(Informe informe,TipoInforme tipoInforme);
 }
