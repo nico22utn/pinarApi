@@ -10,6 +10,8 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ import javax.persistence.Table;
  * @author User
  */
 @Entity
-@Table()
+@Table(name="detalleinforme")
 public class DetalleInforme implements Serializable{
     
     public enum TipoInforme {BASICO,AVANZADO};
@@ -36,6 +38,7 @@ public class DetalleInforme implements Serializable{
     @Lob
     @Column(name="foto",nullable=true)
     private byte[] fotoPaciente;
+    @Enumerated(EnumType.STRING)
     @Column
     public TipoInforme tipoInforme;
     

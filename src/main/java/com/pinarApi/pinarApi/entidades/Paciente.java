@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -36,15 +37,16 @@ public class Paciente {
     private String dni;
     @Column
     private int edad;
+    @Column(name="fechade_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechadeNacimiento;
-    @Column
+    @Column(name="fecha_alta")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaAlta;
-    @Column
+    @Column(name="fecha_baja")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaBaja;
-    @Column
+    @Column(name="motivo_baja")
     private String motivoBaja;
     @Lob
     @Column(name="foto",nullable=false)
@@ -52,6 +54,7 @@ public class Paciente {
     @Column
     private String nombre;
     @ManyToOne
+    @JoinColumn(name="obra_social_id")
     private ObraSocial obraSocial;
     
     public Paciente() {
