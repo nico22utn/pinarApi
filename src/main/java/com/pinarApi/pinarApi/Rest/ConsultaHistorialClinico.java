@@ -5,6 +5,7 @@
  */
 package com.pinarApi.pinarApi.Rest;
 
+import com.pinarApi.pinarApi.modelo.DTOPantalla;
 import com.pinarApi.pinarApi.modelo.DetalleInformeModel;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
 import com.pinarApi.pinarApi.services.HistorialClinicoService;
@@ -30,10 +31,10 @@ public class ConsultaHistorialClinico {
     private HistorialClinicoService historialClinicoService;
     
     @GetMapping("/find")
-    public ResponseEntity<List<DetalleInformeModel>> getFindEntityCliente
+    public ResponseEntity<DTOPantalla> getFindEntityCliente
         (@RequestParam(value="dni",required=true) String dni){
-            List<DetalleInformeModel> list = historialClinicoService.buscarHistorialInformePorDni(dni);
-            return new ResponseEntity<List<DetalleInformeModel>>(list, HttpStatus.OK);
+            DTOPantalla list = historialClinicoService.buscarHistorialInformePorDni(dni);
+            return new ResponseEntity<DTOPantalla>(list, HttpStatus.OK);
     }
     
 }

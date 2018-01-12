@@ -16,6 +16,7 @@ import com.pinarApi.pinarApi.entidades.DetalleInforme.TipoInforme;
 import com.pinarApi.pinarApi.entidades.HistorialClinico;
 import com.pinarApi.pinarApi.entidades.Informe;
 import com.pinarApi.pinarApi.entidades.Paciente;
+import com.pinarApi.pinarApi.modelo.DTOPantalla;
 import com.pinarApi.pinarApi.modelo.DetalleInformeModel;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
 import java.util.ArrayList;
@@ -45,26 +46,29 @@ public class HistorialClinicoServiceImpl implements HistorialClinicoService {
     @Autowired
     private DetalleInformeRepository detalleInformeRepository;
     @Override
-    public List<DetalleInformeModel> buscarHistorialInformePorDni(String dni) {
+    public DTOPantalla buscarHistorialInformePorDni(String dni) {
         
         Paciente paciente = pacienteRepository.findByDni(dni);
         HistorialClinico historial =historialClinicoRepository.findByPaciente(paciente);
         List<Informe> listInforme=informeRepository.findByHistorialClinico(historial);
         List<DetalleInforme> list=new ArrayList<>();
+        DTOPantalla dto= new DTOPantalla();
+        dto.setDni(dni);
+        dto.setFoto(paciente.getFotoPaciente()!=null?paciente.getFotoPaciente():null);
         for(Informe i:listInforme){
             List<DetalleInforme> listAux=new ArrayList<>();
             listAux=detalleInformeRepository.findByInformeAndTipoInforme(i, TipoInforme.BASICO);
             list.addAll(listAux);
         }
-        //List<Long> ids=new ArrayList<>();
-        //ids= entityManager.createQuery("SELECT i.id FROM Informe i where i.historialClinico=:h ").setParameter("h", historial).getResultList();
-        //List<DetalleInforme> list=entityManager.createQuery("SELECT * FROM DetalleInforme de where de.informe.id in :ids AND de.tipoInforme=:tipo").setParameter("ids",ids).setParameter("tipo",TipoInforme.BASICO).getResultList();
-        List<DetalleInformeModel> listConverter=new ArrayList<>();
+//        List<DetalleInformeModel> listConverter=new ArrayList<>();
+        List<String> informes=new ArrayList<>();
         for(DetalleInforme d: list){
-            DetalleInformeModel model=DetalleInformeConverter.detalleInformeToModel(d);
-            listConverter.add(model);
+            informes.add(d.getInformeMedico());
+//            DetalleInformeModel model=DetalleInformeConverter.detalleInformeToModel(d);
+//            listConverter.add(model);    
         }
-        return listConverter;
+        dto.setInformes(informes);
+        return dto;
     }
     
     
