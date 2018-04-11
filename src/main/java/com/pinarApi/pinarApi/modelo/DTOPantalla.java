@@ -13,37 +13,46 @@ import java.util.List;
  * @author User
  */
 public class DTOPantalla {
-    private String dni;
-    private List<String> informes=new ArrayList<>();
-    private byte[] foto;
-
+    private String nombrePaciente;
+    private String dniPaciente;
+    private byte[] fotoPaciente;
+    private List<DTODetalleInforme> listInformes=new ArrayList<>();
+    
     public DTOPantalla() {
     }
 
-    public String getDni() {
-        return dni;
+    public String getDniPaciente() {
+        return dniPaciente;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDniPaciente(String dni) {
+        this.dniPaciente = dni;
     }
 
-    public List<String> getInformes() {
-        return informes;
+    public byte[] getFotoPaciente() {
+        return fotoPaciente;
     }
 
-    public void setInformes(List<String> informes) {
-        this.informes = informes;
+    public void setFotoPaciente(byte[] foto) {
+        this.fotoPaciente = foto;
     }
 
-    public byte[] getFoto() {
-        return foto;
+    public List<DTODetalleInforme> getListInformes() {
+        return listInformes;
     }
 
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
+    public void setListInformes(List<DTODetalleInforme> listInforme) {
+        this.listInformes = listInforme;
+    }
+
+    public String getNombrePaciente() {
+        return nombrePaciente;
+    }
+
+    public void setNombrePaciente(String nombrePaciente) {
+        this.nombrePaciente = nombrePaciente;
     }
     
     
-    
+       
 }

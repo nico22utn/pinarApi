@@ -16,10 +16,13 @@ import com.pinarApi.pinarApi.entidades.DetalleInforme.TipoInforme;
 import com.pinarApi.pinarApi.entidades.HistorialClinico;
 import com.pinarApi.pinarApi.entidades.Informe;
 import com.pinarApi.pinarApi.entidades.Paciente;
+import com.pinarApi.pinarApi.modelo.DTODetalleInforme;
 import com.pinarApi.pinarApi.modelo.DTOPantalla;
 import com.pinarApi.pinarApi.modelo.DetalleInformeModel;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
+import com.pinarApi.pinarApi.pinarUtils.PinarUtils;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,28 +50,29 @@ public class HistorialClinicoServiceImpl implements HistorialClinicoService {
     private DetalleInformeRepository detalleInformeRepository;
     @Override
     public DTOPantalla buscarHistorialInformePorDni(String dni) {
-        
+        DTOPantalla dto= new DTOPantalla();
         Paciente paciente = pacienteRepository.findByDni(dni);
         HistorialClinico historial =historialClinicoRepository.findByPaciente(paciente);
         List<Informe> listInforme=informeRepository.findByHistorialClinico(historial);
-        List<DetalleInforme> list=new ArrayList<>();
-        DTOPantalla dto= new DTOPantalla();
-        dto.setDni(dni);
-        dto.setFoto(paciente.getFotoPaciente()!=null?paciente.getFotoPaciente():null);
+        dto.setNombrePaciente(paciente.getApellido()+", "+paciente.getNombre());
+        dto.setDniPaciente(dni);
+        dto.setFotoPaciente(paciente.getFotoPaciente()==null?paciente.getFotoPaciente():null);
+        List<DetalleInforme> listAux=new ArrayList<>();
         for(Informe i:listInforme){
-            List<DetalleInforme> listAux=new ArrayList<>();
-            listAux=detalleInformeRepository.findByInformeAndTipoInforme(i, TipoInforme.BASICO);
-            list.addAll(listAux);
+            listAux=detalleInformeRepository.findByInformeAndTipoInforme(i, TipoInforme.BASICO);       
         }
-//        List<DetalleInformeModel> listConverter=new ArrayList<>();
-        List<String> informes=new ArrayList<>();
-        for(DetalleInforme d: list){
-            informes.add(d.getInformeMedico());
-//            DetalleInformeModel model=DetalleInformeConverter.detalleInformeToModel(d);
-//            listConverter.add(model);    
-        }
-        dto.setInformes(informes);
+        dto.setListInformes(buildListDTO(listAux));
         return dto;
+    }
+    public List<DTODetalleInforme> buildListDTO(List<DetalleInforme> lista){
+        if(lista!=null && !lista.isEmpty()){
+            List<DTODetalleInforme> listaReturn= new ArrayList<>();
+            for(DetalleInforme d: lista){
+                listaReturn.add(PinarUtils.buildDTODetalleInforme(d));
+            }
+            return listaReturn;
+        }
+        return new ArrayList(Arrays.asList(new Long(-1)));
     }
     
     
