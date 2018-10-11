@@ -6,6 +6,8 @@
 package com.pinarApi.pinarApi.services;
 
 import com.pinarApi.pinarApi.modelo.DTOPantalla;
+import com.pinarApi.pinarApi.modelo.PacienteModel;
+
 /**
  *
  * @author User
@@ -13,5 +15,9 @@ import com.pinarApi.pinarApi.modelo.DTOPantalla;
 public interface HistorialClinicoService {
     
         DTOPantalla buscarHistorialInformePorDni(String dni);
+
+        PacienteModel buscarPaciente(String dni);
+
+        DTOPantalla buscarHistorialInformePorArea(String dni,String area);
 
 }

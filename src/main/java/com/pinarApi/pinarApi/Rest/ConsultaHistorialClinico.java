@@ -8,6 +8,7 @@ package com.pinarApi.pinarApi.Rest;
 import com.pinarApi.pinarApi.modelo.DTOPantalla;
 import com.pinarApi.pinarApi.modelo.DetalleInformeModel;
 import com.pinarApi.pinarApi.modelo.HistorialClinicoModel;
+import com.pinarApi.pinarApi.modelo.PacienteModel;
 import com.pinarApi.pinarApi.services.HistorialClinicoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,22 @@ public class ConsultaHistorialClinico {
     private HistorialClinicoService historialClinicoService;
     
     @GetMapping("/find")
-    public ResponseEntity<DTOPantalla> getFindEntityCliente
-        (@RequestParam(value="dni",required=true) String dni){
-            DTOPantalla list = historialClinicoService.buscarHistorialInformePorDni(dni);
+    public ResponseEntity<DTOPantalla> getHistorialClinicoByArea
+        (@RequestParam(value="dni",required=true) String area){
+            DTOPantalla list = historialClinicoService.buscarHistorialInformePorDni(area);
             return new ResponseEntity<DTOPantalla>(list, HttpStatus.OK);
     }
-    
+    @GetMapping("/findPaciente")
+    public PacienteModel getFindPaciente
+            (@RequestParam(value="dni",required=true) String dni){
+        return historialClinicoService.buscarPaciente(dni);
+    }
+
+    @GetMapping("/historiales")
+    public DTOPantalla getHistorialClinicoByArea
+            (@RequestParam(value="dni",required=true) String dni,
+             @RequestParam(value="area",required=true) String area){
+        DTOPantalla list = historialClinicoService.buscarHistorialInformePorArea(dni,area);
+        return list;
+    }
 }

@@ -7,6 +7,7 @@ package com.pinarApi.pinarApi.converter;
 
 import com.pinarApi.pinarApi.entidades.Paciente;
 import com.pinarApi.pinarApi.modelo.PacienteModel;
+import org.springframework.stereotype.Component;
 
 /**
  *
